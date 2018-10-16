@@ -1,4 +1,4 @@
-package pl.bk.contract.application.dto;
+package pl.bk.contract.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

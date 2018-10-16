@@ -1,6 +1,6 @@
 package pl.bk.contract.domain.validator;
 
-import pl.bk.contract.application.dto.ContractDto;
+import pl.bk.contract.api.dto.ContractDto;
 import pl.bk.contract.domain.exception.AppException;
 import pl.bk.contract.domain.exception.ErrorCode;
 import pl.bk.contract.domain.tax.income.CountryDailyIncomeTax;
