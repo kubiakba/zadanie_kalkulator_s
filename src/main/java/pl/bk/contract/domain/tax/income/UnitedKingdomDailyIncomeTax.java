@@ -13,7 +13,7 @@ public class UnitedKingdomDailyIncomeTax implements CountryDailyIncomeTax
     }
     
     @Override
-    public String getLocaleISOCountry()
+    public String getISOCountry()
     {
         return "UK";
     }

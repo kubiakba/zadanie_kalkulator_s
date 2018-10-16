@@ -6,5 +6,5 @@ public interface CountryDailyIncomeTax
 {
     Money calculate(Money gross);
     
-    String getLocaleISOCountry();
+    String getISOCountry();
 }

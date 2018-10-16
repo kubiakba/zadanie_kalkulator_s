@@ -15,7 +15,7 @@ public class PolandDailyIncomeTax implements CountryDailyIncomeTax
     }
     
     @Override
-    public String getLocaleISOCountry()
+    public String getISOCountry()
     {
         return "PL";
     }

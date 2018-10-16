@@ -13,7 +13,7 @@ public class GermanyDailyIncomeTax implements CountryDailyIncomeTax
     }
     
     @Override
-    public String getLocaleISOCountry()
+    public String getISOCountry()
     {
         return "DE";
     }
