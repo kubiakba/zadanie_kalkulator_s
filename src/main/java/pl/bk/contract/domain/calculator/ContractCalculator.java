@@ -28,7 +28,7 @@ public class ContractCalculator
     private final Set<CountryDailyIncomeTax> countriesDailyIncomeTax;
     private final long NUMBER_OF_DAYS_IN_MONTH = 22;
     
-    public Money calculateDailyNetIncome(ContractDto contract)
+    public Money calculateDailyNetEarnings(ContractDto contract)
     {
         isCountryISOValid(contract.getISOCountry());
         final CurrencyUnit unit = getCurrencyUnit(contract);
@@ -41,11 +41,9 @@ public class ContractCalculator
         
         final Money monthEarnings = calculateMonthEarnings(dailyGrossMinusIncomeTax);
         
-        final Money monthEarningMinusFixCosts = substractFixCosts(contract, monthEarnings);
+        final Money monthEarningMinusFixCosts = subtractFixCosts(contract, monthEarnings);
         
-        final Money dailyNetEarnings = calculateDailyNetEarnings(monthEarningMinusFixCosts);
-        
-        return dailyNetEarnings;
+        return calculateDailyNetEarnings(monthEarningMinusFixCosts);
     }
     
     private Money calculateDailyNetEarnings(Money monthEarningMinusFixCosts)
@@ -53,7 +51,7 @@ public class ContractCalculator
         return monthEarningMinusFixCosts.divide(NUMBER_OF_DAYS_IN_MONTH);
     }
     
-    private Money substractFixCosts(ContractDto contract, Money monthEarnings)
+    private Money subtractFixCosts(ContractDto contract, Money monthEarnings)
     {
         final FixedCostsTax costs = getFixCostsForCountry(contract.getISOCountry());
         return monthEarnings.subtract(costs.getMoney());
