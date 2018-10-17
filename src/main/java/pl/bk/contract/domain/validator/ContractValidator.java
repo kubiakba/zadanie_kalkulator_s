@@ -7,6 +7,7 @@ import java.util.Locale;
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static pl.bk.contract.domain.exception.ErrorCode.INVALID_COUNTRY_ISO_CODE;
+import static pl.bk.contract.domain.exception.ErrorCode.INVALID_NUMBER_FORMAT;
 
 public class ContractValidator
 {
@@ -22,4 +23,17 @@ public class ContractValidator
             );
         }
     }
+    
+    public static void isEarningFormatValid(String earnings)
+    {
+        if(!earnings.matches("\\d+(\\.\\d+)?"))
+        {
+            throw new AppException(
+                "Invalid number format: " + earnings + " have been passed.",
+                BAD_REQUEST,
+                INVALID_NUMBER_FORMAT
+            );
+        }
+    }
+    
 }
