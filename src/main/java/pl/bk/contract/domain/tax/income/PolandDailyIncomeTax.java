@@ -11,7 +11,7 @@ public class PolandDailyIncomeTax implements CountryDailyIncomeTax
     @Override
     public Money calculate(Money gross)
     {
-        return gross.multiply(100 - taxPercent);
+        return gross.multiply(100 - taxPercent).divide(100);
     }
     
     @Override
