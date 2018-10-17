@@ -9,12 +9,14 @@ import pl.bk.contract.domain.tax.income.CountryDailyIncomeTax;
 
 import javax.money.CurrencyUnit;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Set;
 
 import static java.util.Arrays.stream;
 import static java.util.Currency.getInstance;
+import static java.util.Locale.*;
 import static java.util.stream.Stream.of;
 import static javax.money.Monetary.getCurrency;
 import static pl.bk.contract.domain.validator.ContractValidator.isCountryISOValid;
@@ -93,7 +95,13 @@ public class ContractCalculator
     
     private Currency getCurrencyFrom(ContractDto contract)
     {
-        return getInstance(new Locale(contract.getISOCountry()));
+        isCountryISOValid(contract.getISOCountry());
+        final Locale locale = Arrays.stream(getAvailableLocales())
+                                    .filter(loc -> loc.getCountry().toLowerCase()
+                                                      .contains(contract.getISOCountry().toLowerCase()))
+                                    .findFirst()
+                                    .get();
+        return getInstance(locale);
     }
     
 }
