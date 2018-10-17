@@ -13,7 +13,8 @@ public class ContractValidator
     public static void isCountryISOValid(String ISOCountry)
     {
         if(stream(Locale.getAvailableLocales())
-            .noneMatch(locale -> locale.getCountry().equals(ISOCountry)))
+            .noneMatch(locale -> locale.getCountry().toLowerCase()
+                                       .contains(ISOCountry.toLowerCase())))
         {
             throw new AppException(
                 "Invalid iso code: " + ISOCountry + " have been passed.",
