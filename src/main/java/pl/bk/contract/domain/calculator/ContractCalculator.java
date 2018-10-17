@@ -16,7 +16,7 @@ import java.util.Set;
 
 import static java.util.Arrays.stream;
 import static java.util.Currency.getInstance;
-import static java.util.Locale.*;
+import static java.util.Locale.getAvailableLocales;
 import static java.util.stream.Stream.of;
 import static javax.money.Monetary.getCurrency;
 import static pl.bk.contract.domain.validator.ContractValidator.isCountryISOValid;
@@ -97,8 +97,8 @@ public class ContractCalculator
     {
         isCountryISOValid(contract.getCountryISO());
         final Locale locale = Arrays.stream(getAvailableLocales())
-                                    .filter(loc -> loc.getCountry().toLowerCase()
-                                                      .contains(contract.getCountryISO().toLowerCase()))
+                                    .filter(loc -> loc.getCountry()
+                                                      .contains(contract.getCountryISO().toUpperCase()))
                                     .findFirst()
                                     .get();
         return getInstance(locale);
