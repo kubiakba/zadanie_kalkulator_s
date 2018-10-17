@@ -11,7 +11,8 @@ public class FixedCostsTaxValidator
 {
     public static void isFixedCostsDefinedForCountry(String ISOCountry)
     {
-        if(stream(FixedCostsTax.values()).noneMatch(country -> country.name().equals(ISOCountry)))
+        if(stream(FixedCostsTax.values()).noneMatch(country -> country.name().toLowerCase()
+                                                                      .equals(ISOCountry.toLowerCase())))
         {
             throw new AppException(
                 "Country with iso: " + ISOCountry + " is not supported.",
