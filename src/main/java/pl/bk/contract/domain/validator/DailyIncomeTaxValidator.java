@@ -16,13 +16,13 @@ public class DailyIncomeTaxValidator
     {
         final long countries = countriesDailyIncomeTax
             .stream()
-            .filter(country -> country.getISOCountry().equals(contract.getISOCountry()))
+            .filter(country -> country.getISOCountry().equals(contract.getCountryISO()))
             .count();
         
         if(countries == 0)
         {
             throw new AppException(
-                "Country with iso: " + contract.getISOCountry() + " is not supported.",
+                "Country with iso: " + contract.getCountryISO() + " is not supported.",
                 NOT_ACCEPTABLE,
                 ErrorCode.COUNTRY_NOT_SUPPORTED
             );
@@ -30,7 +30,7 @@ public class DailyIncomeTaxValidator
         if(countries > 1)
         {
             throw new AppException(
-                "Country with iso: " + contract.getISOCountry() + " have more than one implementation.",
+                "Country with iso: " + contract.getCountryISO() + " have more than one implementation.",
                 INTERNAL_SERVER_ERROR,
                 ErrorCode.INTERNAL_ERROR
             );

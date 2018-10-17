@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ContractDto
 {
-    private String ISOCountry;
+    private String countryISO;
     private String dailyGrossEarnings;
 }

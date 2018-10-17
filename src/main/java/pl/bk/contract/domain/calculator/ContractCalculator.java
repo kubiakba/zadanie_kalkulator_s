@@ -32,7 +32,7 @@ public class ContractCalculator
     
     public Money calculateDailyNetEarnings(ContractDto contract)
     {
-        isCountryISOValid(contract.getISOCountry());
+        isCountryISOValid(contract.getCountryISO());
         final CurrencyUnit unit = getCurrencyUnit(contract);
         
         final Money dailyGrossEarnings = Money.of(new BigDecimal(contract.getDailyGrossEarnings()), unit);
@@ -55,7 +55,7 @@ public class ContractCalculator
     
     private Money subtractFixCosts(ContractDto contract, Money monthEarnings)
     {
-        final FixedCostsTax costs = getFixCostsForCountry(contract.getISOCountry());
+        final FixedCostsTax costs = getFixCostsForCountry(contract.getCountryISO());
         return monthEarnings.subtract(costs.getMoney());
     }
     
@@ -79,7 +79,7 @@ public class ContractCalculator
             .map(money ->
                      countriesDailyIncomeTax
                          .stream()
-                         .filter(country -> country.getISOCountry().equals(contract.getISOCountry()))
+                         .filter(country -> country.getISOCountry().equals(contract.getCountryISO()))
                          .findFirst()
                          .get()
                          .calculate(money))
@@ -95,10 +95,10 @@ public class ContractCalculator
     
     private Currency getCurrencyFrom(ContractDto contract)
     {
-        isCountryISOValid(contract.getISOCountry());
+        isCountryISOValid(contract.getCountryISO());
         final Locale locale = Arrays.stream(getAvailableLocales())
                                     .filter(loc -> loc.getCountry().toLowerCase()
-                                                      .contains(contract.getISOCountry().toLowerCase()))
+                                                      .contains(contract.getCountryISO().toLowerCase()))
                                     .findFirst()
                                     .get();
         return getInstance(locale);
