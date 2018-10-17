@@ -19,6 +19,7 @@ import static java.util.Currency.getInstance;
 import static java.util.Locale.getAvailableLocales;
 import static java.util.stream.Stream.of;
 import static javax.money.Monetary.getCurrency;
+import static pl.bk.contract.domain.validator.ContractValidator.isEarningFormatValid;
 import static pl.bk.contract.domain.validator.ContractValidator.isCountryISOValid;
 import static pl.bk.contract.domain.validator.DailyIncomeTaxValidator.isCalculationForCountrySupported;
 import static pl.bk.contract.domain.validator.FixedCostsTaxValidator.isFixedCostsDefinedForCountry;
@@ -32,12 +33,11 @@ public class ContractCalculator
     
     public Money calculateDailyNetEarnings(ContractDto contract)
     {
-        isCountryISOValid(contract.getCountryISO());
+        validate(contract);
+        
         final CurrencyUnit unit = getCurrencyUnit(contract);
-        
+    
         final Money dailyGrossEarnings = Money.of(new BigDecimal(contract.getDailyGrossEarnings()), unit);
-        
-        isCalculationForCountrySupported(countriesDailyIncomeTax, contract);
         
         final Money dailyGrossMinusIncomeTax = applyDailyIncomeTax(contract, dailyGrossEarnings);
         
@@ -46,6 +46,13 @@ public class ContractCalculator
         final Money monthEarningMinusFixCosts = subtractFixCosts(contract, monthEarnings);
         
         return calculateDailyNetEarnings(monthEarningMinusFixCosts);
+    }
+    
+    private void validate(ContractDto contract)
+    {
+        isCountryISOValid(contract.getCountryISO());
+        isEarningFormatValid(contract.getDailyGrossEarnings());
+        isCalculationForCountrySupported(countriesDailyIncomeTax, contract);
     }
     
     private Money calculateDailyNetEarnings(Money monthEarningMinusFixCosts)
