@@ -29,7 +29,7 @@ public class ContractValidator
         if(!earnings.matches("\\d+(\\.\\d+)?"))
         {
             throw new AppException(
-                "Invalid number format: " + earnings + " have been passed.",
+                "Invalid earnings value: " + earnings + " have been passed.",
                 BAD_REQUEST,
                 INVALID_NUMBER_FORMAT
             );
