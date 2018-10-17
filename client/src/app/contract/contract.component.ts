@@ -11,7 +11,7 @@ import {ContractDto} from "./contract-dto";
         <div class="form-group">
           <div class="form-group col-md-2">
             <label for="earnings">Daily gross earnings</label>
-            <input [(ngModel)]="salary" name="salary" type="text" class="form-control" id="earnings">
+            <input [(ngModel)]="salary" name="salary" type="number" min="0" class="form-control" id="earnings">
           </div>
         </div>
         <div class="form-group col-md-1">
