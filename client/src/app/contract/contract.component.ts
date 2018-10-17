@@ -5,27 +5,31 @@ import {ContractDto} from "./contract-dto";
 @Component({
   selector: 'app-contract',
   template: `
-    <br/>
-    <form>
-      <div class="form-row">
-        <div class="form-group col-sm-2">
-          <input [(ngModel)]="salary" name="salary" type="text" class="form-control" id="inputZip" placeholder="gross daily earnings">
+    <div style="background-color: azure">
+      <br/>
+      <form>
+        <div class="form-group">
+          <div class="form-group col-md-2">
+            <label for="earnings">Daily gross earnings</label>
+            <input [(ngModel)]="salary" name="salary" type="text" class="form-control" id="earnings">
+          </div>
         </div>
         <div class="form-group col-md-1">
+          <label>Country</label>
           <select [(ngModel)]="country" name="country" id="inputState" class="form-control">
             <option selected>PL</option>
             <option>DE</option>
             <option>GB</option>
           </select>
         </div>
-        <div class="form-group col-sm-1">
+        <div class="form-group col-md-2">
           <button type="submit" (click)="calculateDailyNetEarningsInPLN()" class="btn btn-primary">Calculate</button>
         </div>
-      </div>
-      <div *ngIf="areCalculationCompleted()">
-        {{contract.dailyGrossEarnings}}
-      </div>
-    </form>
+        <div class="form-group col-md-2" *ngIf="areCalculationCompleted()">
+          <p>Daily net earnings in PLN : {{contract.dailyGrossEarnings}}</p>
+        </div>
+      </form>
+    </div>
   `
 })
 export class ContractComponent {
