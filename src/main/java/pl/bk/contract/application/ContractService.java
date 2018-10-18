@@ -19,7 +19,7 @@ public class ContractService
     public ContractDto calculateDailyNetEarningsInPLN(ContractDto contractDto)
     {
         final Money dailyNetEarnings = contractCalculator.calculateDailyNetEarnings(contractDto);
-        final Money money = currencyUnitExchanger.convertMoneyToPLN(dailyNetEarnings).with(Monetary.getDefaultRounding());
-        return new ContractDto("PL", money.getNumber().toString());
+        final Money dailyNetEarningsInPLN = currencyUnitExchanger.convertMoneyToPLN(dailyNetEarnings).with(Monetary.getDefaultRounding());
+        return new ContractDto("PL", dailyNetEarningsInPLN.getNumber().toString());
     }
 }
