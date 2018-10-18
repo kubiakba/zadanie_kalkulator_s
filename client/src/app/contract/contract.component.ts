@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ContractService} from "./contract.service";
 import {ContractDto} from "./contract-dto";
+import {ErrorMessage} from "../error-message";
 
 @Component({
   selector: 'app-contract',
@@ -49,7 +50,7 @@ export class ContractComponent {
     return this.isResultReady;
   }
 
-  constructor(private contractService: ContractService) {
+  constructor(private contractService: ContractService, private errorsMap: ErrorMessage) {
   }
 
   calculateDailyNetEarningsInPLN() {
@@ -59,7 +60,7 @@ export class ContractComponent {
         this.isResultReady = true;
         this.errorMessage.clear();
       }, error => {
-        this.errorMessage.add(error.error.errorCode);
+        this.errorMessage.add(this.errorsMap.getOrDefault(error.error.errorCode));
         this.isResultReady = false;
       })
   }
