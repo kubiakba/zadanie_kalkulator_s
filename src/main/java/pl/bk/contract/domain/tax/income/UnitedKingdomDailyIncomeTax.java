@@ -6,17 +6,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class UnitedKingdomDailyIncomeTax implements CountryDailyIncomeTax
 {
-    private final long taxPercent = 25;
+    private final static long TAX_PERCENT = 25;
+    private final static String COUNTRY_ISO_CODE = "GB";
+    
     
     @Override
     public Money calculate(Money gross)
     {
-        return gross.multiply(100 - taxPercent).divide(100);
+        return gross.multiply(100 - TAX_PERCENT).divide(100);
     }
     
     @Override
     public String getISOCountry()
     {
-        return "GB";
+        return COUNTRY_ISO_CODE;
     }
 }
